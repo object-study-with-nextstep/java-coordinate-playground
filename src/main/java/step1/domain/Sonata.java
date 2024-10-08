@@ -1,25 +1,25 @@
 package step1.domain;
 
-public class Sonata extends Car {
-    private final int tripDistance;
-    private final int distancePerLiter = 10;
+import step1.domain.vo.DistancePerLiter;
+import step1.domain.vo.TripDistance;
+
+public class Sonata implements Car {
+    private static final int DISTANCE_PER_LITER = 10;
+    private final TripDistance tripDistance;
+    private final DistancePerLiter distancePerLiter;
 
     public Sonata(int tripDistance) {
-        this.tripDistance = tripDistance;
+        this.tripDistance = new TripDistance(tripDistance);
+        this.distancePerLiter = new DistancePerLiter(DISTANCE_PER_LITER);
     }
 
     @Override
-    double getDistancePerLiter() {
-        return distancePerLiter;
-    }
-
-    @Override
-    double getTripDistance() {
-        return tripDistance;
-    }
-
-    @Override
-    String getName() {
+    public String getName() {
         return this.getClass().getSimpleName();
+    }
+
+    @Override
+    public double getChargeQuantity() {
+        return tripDistance.value() / distancePerLiter.value();
     }
 }
